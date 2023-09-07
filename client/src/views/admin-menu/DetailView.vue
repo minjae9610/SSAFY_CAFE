@@ -57,4 +57,24 @@ function moveList() {
 getMenu();
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.card {
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card-text {
+  white-space: pre-line;
+}
+</style>
