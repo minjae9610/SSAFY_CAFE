@@ -25,17 +25,13 @@ import { RouterLink } from "vue-router";
 import {useRouter} from "vue-router";
 import router from "../../router";
 
-const common = useCommonStore();
+const commonStore = useCommonStore();
 const orders = ref([]);
 
 async function getOrders(){
   const result = await api.orders.findAll();
-  console.log(result);
+  // console.log(result);
   orders.value = result.data;
-}
-
-function setImage(image_src){
-  return `http://43.201.252.22:8080/${image_src}`;
 }
 
 function moveDetail(id){
@@ -45,7 +41,7 @@ function moveDetail(id){
   });
 }
 
-common.changeTitle("주문 목록");
+commonStore.setTitle("주문 목록");
 getOrders();
 
 

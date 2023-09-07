@@ -28,7 +28,7 @@ const route = useRoute();
 const menus_id = ref(0);
 const quantity = ref(0);
 const request_detail = ref("");
-const common = useCommonStore();
+const commonStore = useCommonStore();
 
 async function addOrders(){
   if (!menus_id.value || !quantity.value || !request_detail.value){
@@ -37,7 +37,7 @@ async function addOrders(){
   const result = await api.orders.create(
       menus_id.value, quantity.value, request_detail.value
   );
-  console.log(result);
+  // console.log(result);
   if (result.data.success){
       alert(result.data.message);
       router.push({name:"orders"});
@@ -46,7 +46,7 @@ async function addOrders(){
       alert(result.data.message);
   }
 }
-
+commonStore.setTitle("주문하기");
 </script>
 
 <style scoped>
