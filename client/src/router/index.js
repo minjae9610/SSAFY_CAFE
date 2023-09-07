@@ -20,9 +20,14 @@ const router = createRouter({
       component: () => import("@/views/order/RegisterView.vue"),
     },
     {
+      path: "/orders/register/detail/:id",
+      name: "orders-register-detail",
+      component: () => import("@/views/order/RegisterDetailView.vue"),
+    },
+    {
       path: "/orders/register/:id",
       name: "orders-update",
-      component: () => import("@/views/order/RegisterView.vue"),
+      component: () => import("@/views/order/RegisterDetailView.vue"),
     },
     {
       path: "/orders/:id",

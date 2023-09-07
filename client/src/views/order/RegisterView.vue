@@ -1,64 +1,74 @@
 <template>
-  <div class="form-wrapper">
-    <div>
-      <span>menus_id: </span>
-      <input type="text" v-model="menus_id">
-    </div>
-    <div>
-      <span>quantity: </span>
-      <input type="text" v-model="quantity">
-    </div>
-    <div>
-      <span>request_detail: </span>
-      <input type="text" v-model="request_detail">
-    </div>
-    <button @click="addOrders">주문 추가하기</button>
-  </div>
+  <RouterLink :to="{ name: 'menus-register' }">
+    <button type="button" class="order-button btn btn-outline-dark w-100">메뉴 추가하기</button>
+  </RouterLink>
+  <ul>
+    <li v-for="menu in menus" :key="menu.id" @click="moveDetail(menu.id)">
+      <div class="menu-container">
+        <div class="menu-image" :style="`background-image: url(${setImage(menu.image_src)})`"></div>
+        <div class="menu-info-wrapper">
+          <h2 class="menu-name">{{ menu.name }}</h2>
+          <p class="menu-description">{{ menu.description }}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useCommonStore } from '@/stores/common';
-import { useRouter } from 'vue-router';
 import { api } from '@/utils/axios';
+import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
-
-const menus_id = ref(0);
-const quantity = ref(0);
-const request_detail = ref("");
 const commonStore = useCommonStore();
+const menus = ref([]);
 
-async function addOrders() {
-  if (!menus_id.value || !quantity.value || !request_detail.value) {
-    alert("빈 값이 있습니다. 내용을 전부 작성해주세요.");
-  }
-  const result = await api.orders.create(
-    quantity.value, request_detail.value, menus_id.value
-  );
+async function getMenus() {
+  const result = await api.menus.findAll();
   // console.log(result);
-  if (result.data.success) {
-    alert(result.data.message);
-    router.push({ name: "orders" });
-  }
-  if (!result.data.success) {
-    alert(result.data.message);
-  }
+  menus.value = result.data;
+}
+
+function setImage(image_src) {
+  return `${import.meta.env.VITE_API_HOST}/public/${image_src}`;
+}
+
+function moveDetail(id) {
+  router.push({ name: "orders-register-detail", params: { id } });
 }
 
 commonStore.setTitle("주문하기");
+getMenus();
 </script>
 
 <style scoped>
-.form-wrapper {
+.menu-container {
   display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  border: 1px solid black;
-  padding: 20px;
-}
+  align-items: center;
+  border-bottom: 3px solid black;
 
-.form-wrapper>* {
-  margin: 10px;
+  .menu-info-wrapper {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .menu-name {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .menu-description {
+    padding-top: 10px;
+  }
+
+  .menu-image {
+    background-size: cover;
+    background-position: center;
+    width: 180px;
+    height: 180px;
+  }
 }
 </style>
