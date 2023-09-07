@@ -37,7 +37,7 @@ function setImage(image_src) {
 }
 
 function moveDetail(id) {
-  router.push({ name: "orders-update", params: { id } });
+  router.push({ name: "orders-register-detail", params: { id } });
 }
 
 commonStore.setTitle("주문하기");

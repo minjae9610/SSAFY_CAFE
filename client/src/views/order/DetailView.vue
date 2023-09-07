@@ -8,8 +8,15 @@
         <br>
         요청 사항: {{ data.request_detail }}
       </p>
-      <button type="button" class="btn btn-danger" @click="deleteMenu">주문취소</button>
-      <button type="button" class="btn btn-outline-primary" @click="moveList">목록으로</button>
+      <button type="button" class="btn btn-primary" @click="moveRegister">
+        수정하기
+      </button>
+      <button type="button" class="btn btn-danger" @click="deleteMenu">
+        주문취소
+      </button>
+      <button type="button" class="btn btn-outline-primary" @click="moveList">
+        목록으로
+      </button>
     </div>
   </div>
 </template>
@@ -31,6 +38,10 @@ async function getMenu() {
   // console.log(result.data);
   data.value = result.data;
 };
+
+function moveRegister() {
+  router.push({ name: "orders-update", params: { id: route.params.id } });
+}
 
 async function deleteMenu() {
   const confirmResult = confirm("삭제하시겠습니까?");
