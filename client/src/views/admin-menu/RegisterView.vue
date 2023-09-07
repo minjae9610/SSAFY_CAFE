@@ -44,6 +44,7 @@ function fileChange(e) {
 async function menuCreate() {
   if (!name.value || !description.value || !file.value) {
     alert("빈 값이 있습니다. 내용을 전부 작성해주세요.");
+    return;
   }
 
   const result = await api.menus.create(

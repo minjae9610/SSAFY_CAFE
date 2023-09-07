@@ -47,8 +47,10 @@ async function getMenus() {
 async function addOrders() {
   if (!quantity.value || !request_detail.value) {
     alert("빈 값이 있습니다. 내용을 전부 작성해주세요.");
+    return;
   } else if (quantity.value <= 0) {
     alert("수량은 0보다 커야합니다.");
+    return;
   }
   let result = null;
   if (route.name == "orders-update") {
