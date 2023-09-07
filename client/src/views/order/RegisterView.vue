@@ -1,7 +1,4 @@
 <template>
-  <RouterLink :to="{ name: 'menus-register' }">
-    <button type="button" class="order-button btn btn-outline-dark w-100">메뉴 추가하기</button>
-  </RouterLink>
   <ul>
     <li v-for="menu in menus" :key="menu.id" @click="moveDetail(menu.id)">
       <div class="menu-container">
@@ -19,7 +16,6 @@
 import { ref } from 'vue';
 import { useCommonStore } from '@/stores/common';
 import { api } from '@/utils/axios';
-import { RouterLink } from 'vue-router';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
